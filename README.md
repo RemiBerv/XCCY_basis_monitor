@@ -49,9 +49,9 @@ The true XCCY basis is the CIP deviation stripped from FX forward quotes — it 
 - Clean and align time series
 
 ### Step 2 — Basis Calculation
-- Reconstruct implied USD rate from FX forward: `F/S = (1 + r_USD * T) / (1 + r_EUR * T)`
-- Compute basis = implied rate - actual SOFR rate, expressed in bps
-- Repeat across tenors to build the basis curve
+- Compute proxy basis = `EURIBOR(T) − SOFR(T)`, expressed in bps
+- Note: this is the interest rate differential, not the true CIP basis which would require FX forward quotes
+- Repeat across tenors to build the proxy basis curve
 
 ### Step 3 — Stress Episode Analysis
 - Define stress windows: COVID (Mar 2020), Ukraine (Feb 2022), SVB (Mar 2023), tariff shock (2025)
