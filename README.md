@@ -1,5 +1,9 @@
 # XCCY Basis Monitor
 
+> **IMPORTANT — Data Limitation**
+>
+> The basis levels computed in this project (EURIBOR 3M minus SOFR 90D) represent the **EUR/USD interest rate differential**, not the true traded XCCY basis. The true basis requires FX forward quotes (Bloomberg FXFA or equivalent) and is significantly smaller in absolute terms — the EUR/USD 3M basis is currently around **−5 bps** in the market vs **−170 bps** computed here. This project is a **directional indicator of USD funding stress**, not a replication of traded XCCY swap spreads.
+
 ## What is the XCCY Basis?
 
 A Cross Currency Basis Swap (XCCY) is a float-float swap between two currencies. One party pays a floating rate in currency A (e.g. EURIBOR 3M) and receives a floating rate in currency B (e.g. SOFR 3M), with an exchange of notionals at inception and maturity.
@@ -21,13 +25,21 @@ Three empirical regularities drive activity on a XCCY desk:
 
 ## What This Project Builds
 
-A Python tool that:
+A Python tool that tracks EUR/USD interest rate differentials as a **proxy** for USD funding pressure:
 
-- Computes the EUR/USD basis from publicly available market data (FRED, yfinance)
-- Reconstructs a basis curve across multiple tenors (1M, 3M, 6M, 1Y, 2Y, 5Y)
-- Visualises the historical evolution of the basis
-- Identifies and annotates stress episodes
-- Demonstrates the steepening dynamic empirically
+- Computes the EUR/USD rate differential from publicly available market data (FRED, yfinance)
+- Reconstructs a proxy basis curve across multiple tenors (ON, 1M, 3M, 6M, 1Y)
+- Visualises the historical evolution and stress episodes
+- Identifies and annotates stress windows (COVID, Ukraine, SVB, tariff shock)
+- Demonstrates the short-end concentration and curve steepening dynamic empirically
+
+### What it does correctly
+
+The stress episode analysis and curve shape dynamics (slope, front-end concentration) remain valid as **directional observations**. The project correctly identifies *when* and *where* USD funding pressure concentrates. The absolute levels are not comparable to traded XCCY quotes.
+
+### What it does not do
+
+The true XCCY basis is the CIP deviation stripped from FX forward quotes — it requires interbank FX forward data (e.g. Bloomberg FXFA, Reuters, or bank contributor feeds), none of which are freely available. According to market practitioners, the EUR/USD 3M traded basis is currently around −5.5 bps and the 10Y around −9.625 bps. The −170 bps computed here reflects the policy rate differential between the ECB and the Fed, which is a separate (though related) concept.
 
 ## Project Plan
 
